@@ -30,6 +30,9 @@
 " Sets how many lines of history VIM has to remember
 set history=700
 
+" Share the OSX system clipboard when using MacVim
+set clipboard=unnamed
+
 " Enable filetype plugins
 filetype plugin on
 filetype indent on
@@ -156,7 +159,7 @@ set encoding=utf8
 set ffs=unix,dos,mac
 
 " Use large font by default in MacVim
-set gfn=Monaco:h19
+set gfn=Pragmata\ Medium\ for\ Powerline:h14
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -233,6 +236,7 @@ augroup END
 " Remember info about open buffers on close
 set viminfo^=%
 
+command! -bar -range=% Trim :<line1>,<line2>s/\s\+$//e
 
 """"""""""""""""""""""""""""""
 " => Status line
@@ -338,7 +342,16 @@ Bundle 'tpope/vim-endwise'
 Bundle 'ervandew/supertab'
 Bundle 'Raimondi/delimitMate'
 Bundle 'docunext/closetag.vim'
+Bundle 'skammer/vim-css-color'
 
+" Readline mappings for insert and command mode
+Bundle 'tpope/vim-rsi'
+
+" Clojure
+Bundle 'tpope/vim-fireplace'
+Bundle 'tpope/vim-classpath'
+Bundle 'tpope/vim-clojure-static'
+"Bundle 'vim-scripts/VimClojure'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Slime
@@ -486,3 +499,9 @@ iabbrev rdebug require 'ruby-debug'; Debugger.start; Debugger.settings[:autoeval
 if filereadable(expand("~/.vimrc.local"))
   source ~/.vimrc.local
 endif
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" => (SC|C|SA)SS
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+autocmd FileType sass,scss,stylus syn cluster sassCssAttributes add=@cssColors
+au! FileType scss syntax cluster sassCssAttributes add=@cssColors
